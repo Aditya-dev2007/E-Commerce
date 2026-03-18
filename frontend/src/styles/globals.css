@@ -1,0 +1,75 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-slate-50 text-gray-900 font-sans antialiased;
+    background-image: radial-gradient(ellipse 80% 80% at 50% -20%,
+      rgba(99,102,241,0.06) 0%, transparent 60%);
+  }
+  * { @apply box-border; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-slate-100; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-400; }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl shadow-glass;
+  }
+  /* Primary button */
+  .btn-primary {
+    @apply bg-secondary text-white px-6 py-3 rounded-xl font-semibold
+           hover:bg-indigo-500 active:scale-95 transition-all duration-200
+           shadow-md hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  /* Secondary button */
+  .btn-secondary {
+    @apply bg-white text-gray-800 px-6 py-3 rounded-xl font-semibold border border-gray-200
+           hover:border-secondary hover:text-secondary active:scale-95 transition-all duration-200;
+  }
+  /* Accent / CTA button */
+  .btn-accent {
+    @apply bg-accent text-white px-6 py-3 rounded-xl font-semibold
+           hover:bg-green-600 active:scale-95 transition-all duration-200
+           shadow-md hover:shadow-glow-green;
+  }
+  /* Input field */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white
+           focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary
+           text-gray-900 placeholder-gray-400 transition-all duration-200;
+  }
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200
+           bg-[length:1000px_100%] animate-shimmer rounded-lg;
+  }
+  /* Section */
+  .section {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16;
+  }
+  /* Product card */
+  .product-card {
+    @apply glass-card overflow-hidden cursor-pointer
+           hover:shadow-xl hover:-translate-y-1 transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-secondary to-purple-400 bg-clip-text text-transparent;
+  }
+  .bg-gradient-brand {
+    @apply bg-gradient-to-br from-primary via-slate-800 to-secondary;
+  }
+}

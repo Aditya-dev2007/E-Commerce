@@ -1,0 +1,19 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: smartstore-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smart_store
+      MYSQL_USER: smartstore
+      MYSQL_PASSWORD: SmartStore@123
+    ports:
+      - "3306:3306"
+    volumes:
+      - smartstore_mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+volumes:
+  smartstore_mysql_data:
+
