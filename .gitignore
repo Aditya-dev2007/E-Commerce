@@ -28,4 +28,5 @@ desktop.ini
 **/coverage/
 **/.cache/
 **/.eslintcache
+**/.vite/
 

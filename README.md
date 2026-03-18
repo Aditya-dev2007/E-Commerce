@@ -70,6 +70,51 @@ Visit: http://localhost:5173 (Vite may auto-pick 5174/5175 if busy)
 - Backend: Render/Railway (set all backend env vars)
 - Database: Railway MySQL / PlanetScale / AWS RDS
 
+### Recommended deployment (Railway MySQL + Render API + Vercel UI)
+
+#### 1) Create MySQL database (Railway)
+- Create a **MySQL** service in Railway.
+- Copy these values from Railway:
+  - **host**, **port**, **user**, **password**, **database**
+- Import schema:
+  - Use Railway’s SQL console (or any MySQL client) to run `database/schema.sql`.
+
+#### 2) Deploy backend (Render or Railway)
+- Deploy the `backend/` folder as a Node service.
+- Start command:
+
+```bash
+npm install && npm start
+```
+
+- Set these backend environment variables:
+  - `NODE_ENV=production`
+  - `PORT=5000` (Render may override; that’s OK)
+  - `DB_HOST=...`
+  - `DB_PORT=...`
+  - `DB_USER=...`
+  - `DB_PASSWORD=...`
+  - `DB_NAME=...`
+  - `JWT_SECRET=...` (use a long random string)
+  - `JWT_EXPIRES_IN=7d`
+  - `FRONTEND_URL=...` (your deployed Vercel URL, e.g. `https://your-app.vercel.app`)
+
+- After deploy, verify health:
+  - Open: `<YOUR_BACKEND_URL>/api/health`
+  - Expect: `success: true` and `db.connected: true`
+
+#### 3) Deploy frontend (Vercel)
+- Deploy the `frontend/` folder as a Vite/React app.
+- Set this environment variable in Vercel:
+  - `VITE_API_URL=<YOUR_BACKEND_URL>/api`
+
+Example:
+- If backend is `https://smartstore-api.onrender.com`, set:
+  - `VITE_API_URL=https://smartstore-api.onrender.com/api`
+
+#### 4) CORS note
+Backend allows `FRONTEND_URL` in production. Make sure `FRONTEND_URL` exactly matches your Vercel domain.
+
 ### Required environment variables
 
 #### Backend (`smart-store/backend/.env`)
